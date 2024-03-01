@@ -14,6 +14,8 @@ namespace ApplicationCore.Interfaces
 
         Task<List<T>> GetAllAsync(ISpecification<T> specification);
 
+        Task<List<T>> GetAllAsync();
+
         Task<T> AddAsync(T entity);
 
         Task UpdateAsync(T entity);
