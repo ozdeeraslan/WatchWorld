@@ -13,6 +13,8 @@ Ardalis.Specification
 - Microsoft.EntityFrameworkCore.Tools
 - Npgsql.EntityFrameworkCore.PostgreSQL
 - Microsoft.AspNetCore.Identity.EntityFrameworkCore
+- Ardalis.Specification.EntityFrameworkCore
+
 
 ### Web
 - Microsoft.EntityFrameworkCore.Design
