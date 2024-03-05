@@ -41,7 +41,7 @@ namespace Web.Services
                     PictureUri = x.PictureUri ?? "noimage.jpg"
                 }).ToList(),
                 Brands = (await _brandRepo.GetAllAsync()).Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList(),
-                Categories = (await _categoryRepo.GetAllAsync()).Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList()
+                Categories = (await _categoryRepo.GetAllAsync()).Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList(),
                 PaginationInfo = new PaginationInfoViewModel()
                 {
                     TotalItems = totalItems,
