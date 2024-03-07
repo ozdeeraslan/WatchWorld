@@ -18,6 +18,9 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>)); // DI configuration
 builder.Services.AddScoped<IBasketService, BasketService>();
 builder.Services.AddScoped<IHomeViewModelService, HomeViewModelService>();
+builder.Services.AddScoped<IBasketViewModelService, BasketViewModelService>();
+
+
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppIdentityDbContext>();
