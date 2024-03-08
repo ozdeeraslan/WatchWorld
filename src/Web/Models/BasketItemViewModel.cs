@@ -15,8 +15,5 @@
         public string PictureUri { get; set; } = null!;
 
         public decimal TotalPrice => UnitPrice * Quantity;
-
-
-
     }
 }
