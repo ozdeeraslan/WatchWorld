@@ -48,7 +48,7 @@ namespace Web.Controllers
         public async Task<IActionResult> Update([ModelBinder(Name = "quantities")] Dictionary<int, int> quantities)
         {
             await _basketViewModelService.SetQuantitiesAsync(quantities);
-            TempData["Message"] = "The information for the items on your cart has been updated.";
+            TempData["Message"] = "Items updated successfuly.";
             return RedirectToAction("Index");
         }
     }

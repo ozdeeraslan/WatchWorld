@@ -46,7 +46,7 @@ namespace Web.Services
         public async Task<BasketViewModel> AddItemToBasketAsync(int productId, int quantity)
         {
             var basket = await _basketService.AddItemToBasketAsync(BuyerId, productId, quantity);
-            return basket.ToBasketViewModel();      
+            return basket.ToBasketViewModel();
         }
 
         public async Task<BasketViewModel> GetBasketViewModelAsync()
@@ -69,6 +69,14 @@ namespace Web.Services
         {
             var basket = await _basketService.SetQuantitiesAsync(BuyerId, quantities);
             return basket.ToBasketViewModel();
+        }
+
+        public async Task TransferBasketAsync()
+        {
+            if (AnonId == null || UserId == null)
+                return;
+            await _basketService.TransferBasketAsync(AnonId, UserId);
+            HttpContext.Response.Cookies.Delete(Constants.BASKET_COOKIE);
         }
     }
 }
