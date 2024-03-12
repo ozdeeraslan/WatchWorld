@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
 using System.Security.Claims;
 using Web.Extensions;
 using Web.Interfaces;
@@ -10,6 +11,7 @@ namespace Web.Services
     {
         private readonly IBasketService _basketService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IOrderService _orderService;
 
         private HttpContext HttpContext => _httpContextAccessor.HttpContext!;
 
@@ -37,10 +39,11 @@ namespace Web.Services
             return _createdAnonId;
         }
 
-        public BasketViewModelService(IBasketService basketService, IHttpContextAccessor httpContextAccessor)
+        public BasketViewModelService(IBasketService basketService, IHttpContextAccessor httpContextAccessor, IOrderService orderService)
         {
             _basketService = basketService;
             _httpContextAccessor = httpContextAccessor;
+            _orderService = orderService;
         }
 
         public async Task<BasketViewModel> AddItemToBasketAsync(int productId, int quantity)
@@ -78,5 +81,22 @@ namespace Web.Services
             await _basketService.TransferBasketAsync(AnonId, UserId);
             HttpContext.Response.Cookies.Delete(Constants.BASKET_COOKIE);
         }
+
+        public async Task CheckoutAsync(string street, string city, string? state, string country, string zipCode)
+        {
+            var shippingAddress = new Address()
+            {
+                Street = street,
+                City = city,
+                State = state,
+                Country = country,
+                ZipCode = zipCode
+            };
+            
+            await _orderService.CreateOrderAsync(BuyerId, shippingAddress);
+
+            await _basketService.EmptyBasketAsync(BuyerId);
+        }    
+
     }
 }
